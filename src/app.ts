@@ -1,10 +1,13 @@
 import express from 'express';
 import dotenv from 'dotenv';
+
 import './models/UserModel';
 import './models/ClientModel';
 import './models/LoanModel';
 import './models/FeeModel'
 import sequelize from './config/database';
+
+import authRoutes from './routes/authRoute';
 
 const app = express();
 
@@ -16,6 +19,7 @@ const port = process.env.PORT;
 app.use(express.json());
 
 // Routes
+app.use('/api/auth', authRoutes);
 
 // Server
 sequelize.sync({ force: false}).then(() => {

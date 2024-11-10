@@ -36,7 +36,7 @@ import bcrypt from 'bcrypt';
     },
     user_creator_id: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: true,
+      allowNull: false,
     },
   }, {sequelize, 
       modelName: 'User',
