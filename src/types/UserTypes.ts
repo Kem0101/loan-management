@@ -7,3 +7,8 @@ export interface IRegisterData {
   is_owner: boolean,
   user_creator_id: number
 }
+
+export interface ITokenPair {
+  accessToken: string,
+  refreshToken: string
+}

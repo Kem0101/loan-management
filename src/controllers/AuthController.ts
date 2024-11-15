@@ -20,9 +20,36 @@ class AuthController {
       }
        
     }
-
-    
+  
   }
+
+  async login(req: Request, res: Response): Promise<void>{
+    try {
+      const { email, password } = req.body;
+      const { user, tokens } = await AuthService.login(email, password);
+       res.json({ ...tokens, user: user.toJSON()});
+
+    } catch (error) {
+      if(error instanceof Error){
+        console.log('Login error', error);
+        res.status(401).json({ message: error.message });
+      }
+    }
+  }
+
+  async freshToken(req: Request, res: Response): Promise<void> {
+    try {
+      const { refreshToken } = req.body;
+      const tokens = await AuthService.refreshToken(refreshToken);
+       res.json(tokens);
+
+    } catch (error) { 
+      console.log('Error refreshing token', error);
+       res.status(403).json({ message: 'Error refreshing token'});
+    }
+  }
+
+
 }
 
 export default new AuthController;

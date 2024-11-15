@@ -20,4 +20,8 @@ const sequelize = new Sequelize(
   }
 )
 
+export const jwtConfig = {
+  secret: process.env.JWT_SECRET!, accessTokenExpiration: '15m', refreshTokenExpiration: '7d'
+}
+
 export default sequelize;

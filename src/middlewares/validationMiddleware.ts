@@ -9,11 +9,26 @@ export const validateRegistration: ValidationChain[] = [
   body('user_creator_id').notEmpty().withMessage('User creator is required')
 ]; 
 
-export const handlerValidationErros =  (req: Request, res: Response, next: NextFunction): void => {
+export const handlerValidationRegisterErros =  (req: Request, res: Response, next: NextFunction): void => {
   const errors = validationResult(req);
-  if (!errors.isEmpty()) {
+  if(!errors.isEmpty()) {
     res.status(400).json({ errors: errors.array() });
     return;
   }
   next();
 };
+
+
+export const validateLogin: ValidationChain[] = [
+  body('email').isEmail().withMessage('Invalid email'),
+  body('password').notEmpty().withMessage('Password is required')
+];
+
+export const handlerValidationLoginErros = (req: Request, res: Response, next: NextFunction): void => {
+  const errors = validationResult(req);
+  if(!errors.isEmpty()) {
+    res.status(400).json({ errors: errors.array() });
+    return;
+  }
+  next();
+}
